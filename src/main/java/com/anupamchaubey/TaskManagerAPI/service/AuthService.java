@@ -12,13 +12,13 @@ import com.anupamchaubey.TaskManagerAPI.repository.*;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class AuthService {
 
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(PasswordEncoder passwordEncoder,  UserRepository userRepository) {
+    public AuthService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
