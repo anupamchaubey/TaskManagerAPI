@@ -1,4 +1,4 @@
-package com.anupamchaubey.TaskManagerAPI.exception;
+package com.anupamchaubey.TaskManagerAPI.exceptions;
 
 public class InvalidCredentialsException extends RuntimeException{
     public InvalidCredentialsException(String message) {

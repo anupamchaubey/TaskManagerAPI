@@ -2,8 +2,8 @@ package com.anupamchaubey.TaskManagerAPI.service;
 
 import com.anupamchaubey.TaskManagerAPI.dto.LoginDTO;
 import com.anupamchaubey.TaskManagerAPI.dto.RegisterDTO;
-import com.anupamchaubey.TaskManagerAPI.exception.InvalidCredentialsException;
-import com.anupamchaubey.TaskManagerAPI.exception.UserAlreadyExistsException;
+import com.anupamchaubey.TaskManagerAPI.exceptions.InvalidCredentialsException;
+import com.anupamchaubey.TaskManagerAPI.exceptions.UserAlreadyExistsException;
 import com.anupamchaubey.TaskManagerAPI.model.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

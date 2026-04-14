@@ -1,7 +1,7 @@
 package com.anupamchaubey.TaskManagerAPI.service;
 
 import com.anupamchaubey.TaskManagerAPI.dto.TaskDTO;
-import com.anupamchaubey.TaskManagerAPI.exception.NoTaskWithThisIdExistsException;
+import com.anupamchaubey.TaskManagerAPI.exceptions.NoTaskWithThisIdExistsException;
 import com.anupamchaubey.TaskManagerAPI.mapper.TaskMapper;
 import com.anupamchaubey.TaskManagerAPI.model.Task;
 import com.anupamchaubey.TaskManagerAPI.model.User;

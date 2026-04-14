@@ -1,4 +1,4 @@
-package com.anupamchaubey.TaskManagerAPI.exception;
+package com.anupamchaubey.TaskManagerAPI.exceptions;
 
 public class UserAlreadyExistsException extends RuntimeException {
     public UserAlreadyExistsException(String message) {
