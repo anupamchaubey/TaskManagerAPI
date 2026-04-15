@@ -4,6 +4,8 @@ import com.anupamchaubey.TaskManagerAPI.dto.TaskDTO;
 import com.anupamchaubey.TaskManagerAPI.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,13 +23,13 @@ public class TaskController {
     // C R U D
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskDTO.getUserId(), taskDTO));
+    public ResponseEntity<TaskDTO> createTask(@AuthenticationPrincipal UserDetails userDetails, @RequestBody TaskDTO taskDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(userDetails.getUsername(), taskDTO));
     }
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable Long userId) {
-
-        return ResponseEntity.ok(taskService.getUserTasks(userId));
+    @GetMapping
+    public ResponseEntity<List<TaskDTO>> getTasks(@AuthenticationPrincipal UserDetails userDetails) {
+        String identifier=userDetails.getUsername();
+        return ResponseEntity.ok(taskService.getUserTasks(identifier));
     }
     @PutMapping("/{taskId}")
     public ResponseEntity<TaskDTO> updateTask(@PathVariable Long taskId, @RequestBody TaskDTO taskDTO) {

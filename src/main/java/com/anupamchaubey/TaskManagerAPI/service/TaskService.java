@@ -27,40 +27,36 @@ public class TaskService {
         this.taskMapper = taskMapper;
     }
 
-    public TaskDTO createTask(Long userId, TaskDTO dto){
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
+    public TaskDTO createTask(String email, TaskDTO dto){
+        User user = userRepository.findByEmail(email);
+        if(user==null){
             throw new NoTaskWithThisIdExistsException("no user with this id exists");
         }
         Task task = taskMapper.dtoToTask(dto);
-        task.setUser(user.get());
+        task.setUser(user);
         Task savedTask = taskRepository.save(task);
         return taskMapper.taskToDTO(savedTask);
     }
-    public List<TaskDTO> getUserTasks(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
+    public List<TaskDTO> getUserTasks(String email) {
+        User user= userRepository.findByEmail(email);
+        if(user==null){
             throw new NoTaskWithThisIdExistsException("no user with this id exists");
         }
-        List<TaskDTO> ls= taskMapper.tasksToDTOs(taskRepository.findByUser(user.get()));
+        List<TaskDTO> ls= taskMapper.tasksToDTOs(taskRepository.findByUser(user));
         return ls;
     }
     public TaskDTO updateTask(Long taskId, TaskDTO dto){
-        Optional<Task> task = taskRepository.findById(taskId);
-        if(task.isEmpty()){
-            throw new NoTaskWithThisIdExistsException("no task with this id exists");
-        }
-        Task taskToUpdate = task.get();
+
+        Task task = taskRepository.findById(taskId).orElseThrow(()-> new NoTaskWithThisIdExistsException("no task with this id exists"));
+
+        Task taskToUpdate = task;
         taskToUpdate.setTaskName(dto.getTaskName());
         taskToUpdate.setTaskDescription(dto.getTaskDescription());
         taskToUpdate.setDeadline(dto.getDeadline());
         return taskMapper.taskToDTO(taskRepository.save(taskToUpdate));
     }
     public void deleteTask(Long taskId){
-        Optional<Task> task = taskRepository.findById(taskId);
-        if(task.isEmpty()){
-            throw new NoTaskWithThisIdExistsException("no task with this id exists");
-        }
-        taskRepository.delete(task.get());
+        Task task = taskRepository.findById(taskId).orElseThrow(()-> new NoTaskWithThisIdExistsException("no task with this id exists"));
+        taskRepository.delete(task);
     }
 }

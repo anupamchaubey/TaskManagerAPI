@@ -25,9 +25,9 @@ public class AuthService {
 
     public String registerUser(RegisterDTO dto){
 
-        Optional<User> user = userRepository.findByEmail(dto.getEmail());
+        User user = userRepository.findByEmail(dto.getEmail());
         //check if email already exists
-        if(user.isPresent()){
+        if(user!=null){
             throw new UserAlreadyExistsException("User already exists");
         }
         //create new user entity,
@@ -47,13 +47,4 @@ public class AuthService {
 
         return "User registered successfully";
     }
-    public String loginUser(LoginDTO dto){
-        Optional<User> user = userRepository.findByEmail(dto.getEmail());
-
-        if(user.isEmpty() || !passwordEncoder.matches(dto.getPassword(), user.get().getPassword())){
-            throw new InvalidCredentialsException("Invalid Credentials");
-        }
-        return "Access Granted";
-    }
-
 }

@@ -20,5 +20,5 @@ public class TaskDTO {
     private LocalDateTime deadline;
 
     @NotBlank
-    private Long userId;
+    private String userEmail;
 }

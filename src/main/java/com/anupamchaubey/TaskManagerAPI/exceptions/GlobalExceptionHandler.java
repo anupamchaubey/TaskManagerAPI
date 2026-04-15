@@ -2,7 +2,6 @@ package com.anupamchaubey.TaskManagerAPI.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,22 +27,22 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(NoTaskWithThisIdExistsException.class)
     public ResponseEntity<ErrorResponse> handleNoTaskWithThisIdExistsException(NoTaskWithThisIdExistsException ex){
-        ErrorResponse error=new ErrorResponse(ex.getMessage(), 404);
+        ErrorResponse error=new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(NoUserWithGivenIdExistsException.class)
     public ResponseEntity<ErrorResponse> handleNoUserWithGivenIdExistsException(NoUserWithGivenIdExistsException ex){
-        ErrorResponse error=new ErrorResponse(ex.getMessage(), 404);
+        ErrorResponse error=new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserAlreadyExistsException(UserAlreadyExistsException ex){
-        ErrorResponse error=new ErrorResponse(ex.getMessage(), 404);
+        ErrorResponse error=new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex){
-        ErrorResponse error=new ErrorResponse(ex.getMessage(), 404);
+        ErrorResponse error=new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
