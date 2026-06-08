@@ -1,72 +1,108 @@
+# Task Manager API
 
-Task Manager API (Spring Boot + JWT)
+A secure, scalable RESTful API built with **Spring Boot 3+** and **Java 21** for managing tasks. This backend service allows users to register, securely log in, and manage their personal tasks. It features robust JWT-based authentication, object-relational mapping via Spring Data JPA, and comprehensive global exception handling.
 
-📌 Description
+## 🚀 Key Features
 
-A secure Task Manager REST API built using Spring Boot. It allows users to register, login, and manage their tasks with JWT-based authentication. The project follows a layered architecture with DTO abstraction and global exception handling.
+* **Secure Authentication:** User registration and login utilizing Spring Security, BCrypt password hashing, and stateless JSON Web Tokens (JWT).
+* **User-Isolated Task Management:** Full CRUD (Create, Read, Update, Delete) operations for tasks. A user can only view and modify their own tasks.
+* **Input Validation:** Strict payload validation using Jakarta Bean Validation to ensure data integrity (e.g., enforcing valid emails and password constraints).
+* **Global Exception Handling:** Clean, structured JSON error responses mapped to appropriate HTTP status codes using `@RestControllerAdvice`.
+* **Layered Architecture:** Clear separation of concerns utilizing Controllers, Services, Repositories, Entities, and DTOs. Includes a dedicated `TaskMapper` for clean data transfer.
 
-🚀 Features
+## 🛠️ Tech Stack
 
-- User Registration & Login
-- JWT-based Authentication
-- Create, Update, Delete Tasks
-- User-specific task management
-- Secure REST APIs
-- Global Exception Handling
-- Input Validation
+* **Language:** Java 21
+* **Framework:** Spring Boot (v4.0.5)
+* **Security:** Spring Security & jjwt (v0.11.5)
+* **Database:** MySQL & Spring Data JPA (Hibernate)
+* **Boilerplate Reduction:** Lombok
+* **Build Tool:** Maven
 
-🛠️ Tech Stack
+## 📂 Project Structure
 
-- Java
-- Spring Boot
-- Spring Security
-- JWT (JSON Web Token)
-- Spring Data JPA
-- MySQL / H2 Database
-- Maven
+```
+src/main/java/com/anupamchaubey/TaskManagerAPI/
+├── config/         # Security, JWT utilities, and custom UserDetails
+├── controller/     # REST API endpoints (AuthController, TaskController)
+├── dto/            # Data Transfer Objects for requests and responses
+├── enums/          # Enumerations (e.g., TaskStatus)
+├── exceptions/     # Custom exceptions and GlobalExceptionHandler
+├── mapper/         # Component logic mapping Entities <-> DTOs
+├── model/          # JPA Database Entities (User, Task)
+├── repository/     # Spring Data JPA Interfaces
+└── service/        # Core business logic and database interactions
+```
 
-📂 Project Structure
+## 📡 API Endpoints
 
-- controller → handles API requests
-- service → business logic
-- repository → database operations
-- dto → request/response models
-- entity → database models
-- security → JWT & authentication logic
+### Public Endpoints (Authentication)
 
-🔐 Authentication Flow
+| Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/auth/register` | Register a new user | `{"name": "...", "email": "...", "password": "..."}` |
+| **POST** | `/auth/login` | Authenticate & get JWT | `{"email": "...", "password": "..."}` |
 
-1. User logs in with email & password
-2. Server validates credentials
-3. JWT token is generated
-4. Client sends token in Authorization header
-5. Backend validates token using filter
-6. Access is granted to protected APIs
 
-📡 API Endpoints
+### Protected Endpoints (Task Management)
 
-Auth APIs
+> **Authorization Required:** `Bearer <JWT_TOKEN>` header must be included in all requests.
 
-- POST /auth/register → Register user
-- POST /auth/login → Login & get token
+| Method | Endpoint | Description | Request Body |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/api/tasks` | Get all tasks for the logged-in user | *None* |
+| **POST** | `/api/tasks` | Create a new task | `{"taskName": "...", "taskDescription": "...", "deadline": "..."}` |
+| **PUT** | `/api/tasks/{taskId}` | Update an existing task | `{"taskName": "...", "taskDescription": "...", "deadline": "..."}` |
+| **DELETE** | `/api/tasks/{taskId}` | Delete a task | *None* |
 
-Task APIs (Protected)
+## ⚙️ Setup and Installation
 
-- POST /tasks → Create task
-- GET /tasks → Get all tasks
-- PUT /tasks/{id} → Update task
-- DELETE /tasks/{id} → Delete task
+### Prerequisites
+* **Java 21** or higher installed.
+* **MySQL Server** running on your local machine.
+* **Maven** installed (or use the included `mvnw` wrapper).
 
-▶️ How to Run
+---
 
-1. Clone the repository
-2. Open in IntelliJ / Eclipse
-3. Configure database in application.properties
-4. Run the Spring Boot application
-5. Use Postman to test APIs
+### 1. Database Configuration
 
-🎯 Future Improvements
+Create a new MySQL database named `taskmanager`:
 
-- Pagination & Sorting
-- Role-based authentication
-- Docker deployment
+```sql
+CREATE DATABASE taskmanager;
+```
+
+## Properties
+
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/taskmanager
+spring.datasource.username=root
+spring.datasource.password=root
+```
+## Build and Run
+
+### Mac/Linux:
+```
+./mvnw clean install
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+### Windows:
+```
+mvnw.cmd clean install
+mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+```
+💡 Note: The server will start on http://localhost:8080. The dev profile is active by default.
+```
+
+## 🎯 Future Enhancements
+
+* Pagination & Sorting: Implement pagination and sorting for task retrieval.
+
+* Testing: Add comprehensive Unit and Integration Testing using spring-boot-starter-test.
+
+* Dockerization: Containerization using Docker for seamless deployments.
+
+* API Documentation: Add Swagger/OpenAPI documentation for interactive endpoint testing.
