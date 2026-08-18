@@ -1,6 +1,6 @@
-# Task Manager API
+# Taskify
 
-A secure, scalable RESTful API built with **Spring Boot 3+** and **Java 21** for managing tasks. This backend service allows users to register, securely log in, and manage their personal tasks. It features robust JWT-based authentication, object-relational mapping via Spring Data JPA, and comprehensive global exception handling.
+A secure RESTful API built with **Spring Boot 3+** and **Java 21** for managing tasks. This backend service allows users to register, securely log in, and manage their personal tasks. It features robust JWT-based authentication, object-relational mapping via Spring Data JPA, and comprehensive global exception handling.
 
 ## 🚀 Key Features
 
@@ -14,7 +14,7 @@ A secure, scalable RESTful API built with **Spring Boot 3+** and **Java 21** for
 
 * **Language:** Java 21
 * **Framework:** Spring Boot (v4.0.5)
-* **Security:** Spring Security & jjwt (v0.11.5)
+* **Security:** Spring Security & jwt (v0.11.5)
 * **Database:** MySQL & Spring Data JPA (Hibernate)
 * **Boilerplate Reduction:** Lombok
 * **Build Tool:** Maven
@@ -22,11 +22,10 @@ A secure, scalable RESTful API built with **Spring Boot 3+** and **Java 21** for
 ## 📂 Project Structure
 
 ```
-src/main/java/com/anupamchaubey/TaskManagerAPI/
+src/main/java/com/anupamchaubey/Taskify/
 ├── config/         # Security, JWT utilities, and custom UserDetails
 ├── controller/     # REST API endpoints (AuthController, TaskController)
 ├── dto/            # Data Transfer Objects for requests and responses
-├── enums/          # Enumerations (e.g., TaskStatus)
 ├── exceptions/     # Custom exceptions and GlobalExceptionHandler
 ├── mapper/         # Component logic mapping Entities <-> DTOs
 ├── model/          # JPA Database Entities (User, Task)
@@ -96,13 +95,3 @@ mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 💡 Note: The server will start on http://localhost:8080. The dev profile is active by default.
 ```
-
-## 🎯 Future Enhancements
-
-* Pagination & Sorting: Implement pagination and sorting for task retrieval.
-
-* Testing: Add comprehensive Unit and Integration Testing using spring-boot-starter-test.
-
-* Dockerization: Containerization using Docker for seamless deployments.
-
-* API Documentation: Add Swagger/OpenAPI documentation for interactive endpoint testing.
