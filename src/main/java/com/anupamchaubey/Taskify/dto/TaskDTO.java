@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class TaskDTO {
+    private Long taskId;
 
     @NotBlank
     @Size(min = 1, max = 30, message = "cannot exceed length 30, write description instead!")

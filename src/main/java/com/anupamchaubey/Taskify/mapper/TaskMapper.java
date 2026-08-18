@@ -16,6 +16,7 @@ public class TaskMapper {
         taskDTO.setTaskDescription(task.getTaskDescription());
         taskDTO.setDeadline(task.getDeadline());
         taskDTO.setUserEmail(task.getUser().getEmail());
+        taskDTO.setTaskId(task.getTaskId());
         return taskDTO;
     }
     public Task dtoToTask(TaskDTO taskDTO){
